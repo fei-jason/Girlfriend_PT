@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using OpenAI;
+
 
 public class test : MonoBehaviour
 {
@@ -14,10 +16,36 @@ public class test : MonoBehaviour
     public TextAsset textFile2;
     public Slider slider;
 
+
+    // voice to text
+    private OpenAIApi openai = new OpenAIApi();
+    public AudioClip clip;
+    //public var index;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         okButton.onClick.AddListener(() => GetResponse());
+
+        //index = PlayerPrefs.GetInt("user-mic-device-index");
+        //Debug.Log(index);
+        foreach (var device in Microphone.devices)
+        {
+            Debug.Log("Name: " + device);
+        }
+
+    }
+
+    void Update()
+    {
+        bool mic = Input.GetKey(KeyCode.L);
+        if (mic)
+        { 
+            //clip = Microphone.Start(index.text, false);
+            Debug.Log("mic held");
+        }
     }
 
     private async void GetResponse()
