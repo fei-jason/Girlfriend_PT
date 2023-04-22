@@ -1,12 +1,13 @@
 {
   "dependencies": {
     "com.srcnalt.openai-unity": {
-      "version": "file:C:/Users/n01443988/Downloads/OpenAI-Unity-0.1.11/OpenAI-Unity-0.1.11",
+      "version": "https://github.com/srcnalt/OpenAI-Unity.git",
       "depth": 0,
-      "source": "local",
+      "source": "git",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
-      }
+      },
+      "hash": "5924018f2cc371818f146ea36bddcbdcfeca5af6"
     },
     "com.unity.collab-proxy": {
       "version": "2.0.0",

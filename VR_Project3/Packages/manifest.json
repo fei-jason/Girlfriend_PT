@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.srcnalt.openai-unity": "file:C:/Users/n01443988/Downloads/OpenAI-Unity-0.1.11/OpenAI-Unity-0.1.11",
+    "com.srcnalt.openai-unity": "https://github.com/srcnalt/OpenAI-Unity.git",
     "com.unity.collab-proxy": "2.0.0",
     "com.unity.feature.development": "1.0.1",
     "com.unity.ide.rider": "3.0.18",

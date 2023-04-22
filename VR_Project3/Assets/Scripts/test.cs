@@ -16,10 +16,22 @@ public class test : MonoBehaviour
     public TextAsset textFile2;
     public Slider slider;
 
+    // extras
+    [SerializeField] private Button recordButton;
+    [SerializeField] private Image progressBar;
+
 
     // voice to text
-    private OpenAIApi openai = new OpenAIApi();
+    private OpenAIApi openai = new OpenAIApi("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");
+    private readonly string fileName = "output.wav";
+    private readonly int duration = 3;
+    private float startRecordingTime;
     public AudioClip clip;
+    public AudioSource audioSource;
+    private bool isRecording;
+    private float time;
+
+
     //public var index;
 
 
@@ -28,6 +40,7 @@ public class test : MonoBehaviour
     void Start()
     {
         okButton.onClick.AddListener(() => GetResponse());
+        audioSource = GetComponent<AudioSource>();
 
         //index = PlayerPrefs.GetInt("user-mic-device-index");
         //Debug.Log(index);
@@ -36,17 +49,10 @@ public class test : MonoBehaviour
             Debug.Log("Name: " + device);
         }
 
+        recordButton.onClick.AddListener(StartRecording);
+
     }
 
-    void Update()
-    {
-        bool mic = Input.GetKey(KeyCode.L);
-        if (mic)
-        { 
-            //clip = Microphone.Start(index.text, false);
-            Debug.Log("mic held");
-        }
-    }
 
     private async void GetResponse()
     {
@@ -67,4 +73,49 @@ public class test : MonoBehaviour
         w = w.Trim();
         Debug.Log(w);
     }
+
+    private void StartRecording()
+    {
+        isRecording = true;
+        recordButton.enabled = false;
+
+        clip = Microphone.Start(Microphone.devices[0], false, duration, 44100);
+    }
+
+    private async void EndRecording()
+    {
+        Microphone.End(null);
+        byte[] data = SaveWav.Save(fileName, clip);
+
+        var req = new CreateAudioTranscriptionsRequest
+        {
+            FileData = new FileData() { Data = data, Name = "audio.wav" },
+            // File = Application.persistentDataPath + "/" + fileName,
+            Model = "whisper-1",
+            Language = "en"
+        };
+        var res = await openai.CreateAudioTranscription(req);
+
+        progressBar.fillAmount = 0;
+        textField.text = res.Text;
+        recordButton.enabled = true;
+    }
+
+    void Update()
+    {
+        if (isRecording)
+        {
+            time += Time.deltaTime;
+            progressBar.fillAmount = time / duration;
+
+            if (time >= duration)
+            {
+                time = 0;
+                isRecording = false;
+                EndRecording();
+            }
+        }
+    }
+
+
 }

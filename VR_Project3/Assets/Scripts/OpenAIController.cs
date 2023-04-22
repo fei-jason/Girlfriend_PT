@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using OpenAI_API.Models;
+using OpenAI;
 
 public class OpenAIController : MonoBehaviour
 {
@@ -15,10 +16,21 @@ public class OpenAIController : MonoBehaviour
     public TMP_InputField inputField;
     public Button okButton;
     public TextAsset contextTextFile;
-
+    
+    // Whisper
+    [SerializeField] private Button recordButton;
+    [SerializeField] private Image progressBar;
+    private readonly string fileName = "output.wav";
+    private readonly int duration = 3;
+    private AudioClip clip;
+    private bool isRecording;
+    private float time;
+    private OpenAIApi openai = new OpenAIApi("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");
     private OpenAIAPI api;
+
+
     // List of all messages including YOU and ChatGPT
-    private List<ChatMessage> messages;
+    private List<OpenAI_API.Chat.ChatMessage> messages;
 
     // Start is called before the first frame update
     void Start()
@@ -27,15 +39,15 @@ public class OpenAIController : MonoBehaviour
         api = new OpenAIAPI("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");
         StartConversation();
         okButton.onClick.AddListener(() => GetResponse());
-
+        recordButton.onClick.AddListener(StartRecording);
     }
 
     private void StartConversation()
     {
         // 3 roles in ChatMessageRole 
         // ChatMessageRole.System: Gives context in the beginning
-        messages = new List<ChatMessage> { 
-            new ChatMessage (ChatMessageRole.System, contextTextFile.text) };
+        messages = new List<OpenAI_API.Chat.ChatMessage> { 
+            new OpenAI_API.Chat.ChatMessage (ChatMessageRole.System, contextTextFile.text) };
 
         // starting string, we can change this later on when we meet Rosie for example
         inputField.text = "";
@@ -56,7 +68,7 @@ public class OpenAIController : MonoBehaviour
         okButton.enabled = false;
 
         // Fill the user message from the input field
-        ChatMessage userMessage = new ChatMessage();
+        OpenAI_API.Chat.ChatMessage userMessage = new OpenAI_API.Chat.ChatMessage();
         userMessage.Role = ChatMessageRole.User;
         userMessage.Content = inputField.text;
 
@@ -88,7 +100,7 @@ public class OpenAIController : MonoBehaviour
         });
 
         // Get response from ChatGPT
-        ChatMessage responseMessage = new ChatMessage();
+        OpenAI_API.Chat.ChatMessage responseMessage = new OpenAI_API.Chat.ChatMessage();
         responseMessage.Role = chatResult.Choices[0].Message.Role;
         responseMessage.Content = chatResult.Choices[0].Message.Content;
         Debug.Log(string.Format("{0} : {1}", responseMessage.rawRole, responseMessage.Content));
@@ -102,4 +114,48 @@ public class OpenAIController : MonoBehaviour
         // Re-enable the OK button
         okButton.enabled = true;
     }
+
+    private void StartRecording()
+    {
+        isRecording = true;
+        recordButton.enabled = false;
+
+        clip = Microphone.Start(Microphone.devices[0], false, duration, 44100);
+    }
+
+    private async void EndRecording()
+    {
+        Microphone.End(null);
+        byte[] data = SaveWav.Save(fileName, clip);
+
+        var req = new CreateAudioTranscriptionsRequest
+        {
+            FileData = new FileData() { Data = data, Name = "audio.wav" },
+            // File = Application.persistentDataPath + "/" + fileName,
+            Model = "whisper-1",
+            Language = "en"
+        };
+        var res = await openai.CreateAudioTranscription(req);
+
+        progressBar.fillAmount = 0;
+        inputField.text = res.Text;
+        recordButton.enabled = true;
+    }
+
+    void Update()
+    {
+        if (isRecording)
+        {
+            time += Time.deltaTime;
+            progressBar.fillAmount = time / duration;
+
+            if (time >= duration)
+            {
+                time = 0;
+                isRecording = false;
+                EndRecording();
+            }
+        }
+    }
+
 }
