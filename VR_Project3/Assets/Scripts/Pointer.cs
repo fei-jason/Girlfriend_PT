@@ -1,4 +1,5 @@
 /* SceneHandler.cs*/
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 using Valve.VR.Extras;
 using TMPro;
 using OpenAI;
+using System.Text.RegularExpressions;
 
 public class Pointer : MonoBehaviour
 {
@@ -17,10 +19,17 @@ public class Pointer : MonoBehaviour
     public TextAsset textFile;
     public TextAsset textFile2;
     public Slider slider;
+    
+    // canvas
+    public Canvas canvas;
+    private bool isCanvas = true;
+
+    // record buttons
+    public GameObject recordButton;
 
 
     // extras
-    [SerializeField] private Button recordButton;
+    //[SerializeField] private Button recordButton;
     [SerializeField] private Image progressBar;
 
     // speech to text
@@ -47,6 +56,8 @@ public class Pointer : MonoBehaviour
             Debug.Log("Name: " + device);
         }
 
+        Debug.Log("Current Microphone: " + Microphone.devices[0]);
+
         //recordButton.onClick.AddListener(StartRecording);
 
     }
@@ -62,10 +73,22 @@ public class Pointer : MonoBehaviour
     {
         switch (e.target.name)
         {
-            case "Cube":
-                Debug.Log("Cube was clicked");
+            case "OkButton":
+                Debug.Log("Ok was clicked");
                 GetResponse();
                 break;
+            case "Rosie":
+                if (isCanvas == true) {
+                    isCanvas = false;
+                    canvas.enabled = true;
+                } else {
+                    isCanvas = true;
+                    canvas.enabled = false;
+                }
+                break;  
+            case "RecordButton":
+                  StartRecording();
+                  break;
         }
     }
 
@@ -73,7 +96,10 @@ public class Pointer : MonoBehaviour
     {
         switch (e.target.name)
         {
-            case "Cube":
+            case "OkButton":
+                laserPointer.color = Color.yellow;
+                break;
+            case "Rosie":
                 laserPointer.color = Color.yellow;
                 break;
         }
@@ -83,7 +109,10 @@ public class Pointer : MonoBehaviour
     {
         switch (e.target.name)
         {
-            case "Cube":
+            case "OkButton":
+                laserPointer.color = Color.black;
+                break;
+            case "Rosie":
                 laserPointer.color = Color.black;
                 break;
         }
@@ -92,27 +121,28 @@ public class Pointer : MonoBehaviour
         public async void GetResponse()
     {
         // STILL TESTING ALL OF THIS
-//        Debug.Log(textFile.text);
+        // Debug.Log(textFile.text);
         textField.text = string.Format(textFile.text);
 
         Debug.Log(textFile2.text);
 
         string s = textFile2.text;
 
-        s = s.Substring(s.IndexOf("{") + 1);
-        s = s.Substring(0, s.IndexOf("}"));
-
-        Debug.Log("Current intimacy is: " + s);
- 
-        string w = s.Remove(0, 9);
-        w = w.Trim();
-        Debug.Log(w);
+        Match match = Regex.Match(s, @"\d+/\d+");
+        if (match.Success) {
+            string[] parts = match.Value.Split('/');
+            float value = (float)Convert.ToInt32(parts[0]) / Convert.ToInt32(parts[1]);
+            Debug.Log(value);
+            slider.value = value;
+        } else {
+            Debug.Log("was not able to compute intimacy");
+        }
     }
 
     public void StartRecording()
     {
         isRecording = true;
-        recordButton.enabled = false;
+        recordButton.SetActive(false);
 
         clip = Microphone.Start(Microphone.devices[0], false, duration, 44100);
     }
@@ -133,7 +163,7 @@ public class Pointer : MonoBehaviour
 
         progressBar.fillAmount = 0;
         textField.text = res.Text;
-        recordButton.enabled = true;
+        recordButton.SetActive(true);
     }
 
     void Update()

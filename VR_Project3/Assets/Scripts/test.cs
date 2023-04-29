@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using OpenAI;
+using System.Text.RegularExpressions;
 
 
 public class test : MonoBehaviour
@@ -64,14 +65,12 @@ public class test : MonoBehaviour
 
         String s = textFile2.text;
 
-        s = s.Substring(s.IndexOf("{") + 1);
-        s = s.Substring(0, s.IndexOf("}"));
-
-        Debug.Log("Current intimacy is: " + s);
- 
-        String w = s.Remove(0, 9);
-        w = w.Trim();
-        Debug.Log(w);
+        Match match = Regex.Match(s, @"\d+/\d+");
+        if (match.Success) {
+            string[] parts = match.Value.Split('/');
+            float value = (float)Convert.ToInt32(parts[0]) / Convert.ToInt32(parts[1]);
+            Debug.Log(value);
+        }
     }
 
     public void StartRecording()

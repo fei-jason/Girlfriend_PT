@@ -9,6 +9,8 @@ using System;
 using OpenAI_API.Models;
 using OpenAI;
 using Valve.VR.Extras;
+using System;
+using System.Text.RegularExpressions;
 
 public class PointerReal : MonoBehaviour
 {
@@ -19,6 +21,12 @@ public class PointerReal : MonoBehaviour
     public Button okButton;
     public TextAsset contextTextFile;
     
+
+    // canvas
+    public Canvas canvas;
+    private bool isCanvas = true;
+    public Slider slider;
+
     // Whisper
     [SerializeField] private Button recordButton;
     [SerializeField] private Image progressBar;
@@ -66,6 +74,15 @@ public class PointerReal : MonoBehaviour
                 Debug.Log("Cube was clicked");
                 GetResponse();
                 break;
+            case "Rosie":
+                if (isCanvas == true) {
+                    isCanvas = false;
+                    canvas.enabled = true;
+                } else {
+                    isCanvas = true;
+                    canvas.enabled = false;
+                }
+                break; 
         }
     }
 
@@ -76,6 +93,9 @@ public class PointerReal : MonoBehaviour
             case "Cube":
                 laserPointer.color = Color.yellow;
                 break;
+            case "Rosie":
+                laserPointer.color = Color.yellow;
+                break;
         }
     }
 
@@ -84,6 +104,9 @@ public class PointerReal : MonoBehaviour
         switch (e.target.name)
         {
             case "Cube":
+                laserPointer.color = Color.black;
+                break;
+            case "Rosie":
                 laserPointer.color = Color.black;
                 break;
         }
@@ -158,6 +181,15 @@ public class PointerReal : MonoBehaviour
 
         // Update the text field with response
         textField.text = string.Format("You: {0}\n\n{1}", userMessage.Content, responseMessage.Content);
+        Match match = Regex.Match(responseMessage.Content, @"\d+/\d+");
+        if (match.Success) {
+            string[] parts = match.Value.Split('/');
+            float value = (float)Convert.ToInt32(parts[0]) / Convert.ToInt32(parts[1]);
+            Debug.Log(value);
+            slider.value = value;
+        } else {
+            Debug.Log("was not able to compute intimacy!!!!!!!!!!!!!");
+        }
 
         // Re-enable the OK button
         okButton.enabled = true;
