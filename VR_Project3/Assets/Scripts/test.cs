@@ -54,7 +54,7 @@ public class test : MonoBehaviour
     }
 
 
-    private async void GetResponse()
+    public async void GetResponse()
     {
         // STILL TESTING ALL OF THIS
         Debug.Log(textFile.text);
@@ -74,7 +74,7 @@ public class test : MonoBehaviour
         Debug.Log(w);
     }
 
-    private void StartRecording()
+    public void StartRecording()
     {
         isRecording = true;
         recordButton.enabled = false;
@@ -82,7 +82,7 @@ public class test : MonoBehaviour
         clip = Microphone.Start(Microphone.devices[0], false, duration, 44100);
     }
 
-    private async void EndRecording()
+    public async void EndRecording()
     {
         Microphone.End(null);
         byte[] data = SaveWav.Save(fileName, clip);

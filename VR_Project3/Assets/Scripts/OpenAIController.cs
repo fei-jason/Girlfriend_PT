@@ -42,7 +42,7 @@ public class OpenAIController : MonoBehaviour
         recordButton.onClick.AddListener(StartRecording);
     }
 
-    private void StartConversation()
+    public void StartConversation()
     {
         // 3 roles in ChatMessageRole 
         // ChatMessageRole.System: Gives context in the beginning
@@ -56,7 +56,7 @@ public class OpenAIController : MonoBehaviour
         Debug.Log(startString);
 
     }
-    private async void GetResponse()
+    public async void GetResponse()
     {
        // dont send anything to chatgpt if our input is less than 1 or empty
        if (inputField.text.Length < 1)
@@ -115,7 +115,7 @@ public class OpenAIController : MonoBehaviour
         okButton.enabled = true;
     }
 
-    private void StartRecording()
+    public void StartRecording()
     {
         isRecording = true;
         recordButton.enabled = false;
@@ -123,7 +123,7 @@ public class OpenAIController : MonoBehaviour
         clip = Microphone.Start(Microphone.devices[0], false, duration, 44100);
     }
 
-    private async void EndRecording()
+    public async void EndRecording()
     {
         Microphone.End(null);
         byte[] data = SaveWav.Save(fileName, clip);
