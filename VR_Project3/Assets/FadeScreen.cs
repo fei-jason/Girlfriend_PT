@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class FadeScreen : MonoBehaviour
 {
-    public bool fadeOnStart = true;
-    public float fadeDuration = 11;
+    public float fadeDuration = 6;
     public Color fadeColor;
     private Renderer rend;
 
@@ -13,11 +12,8 @@ public class FadeScreen : MonoBehaviour
     void Start()
     {
         rend = GetComponent<Renderer>();
-        if (fadeOnStart)
-        {
-            FadeIn();
-        }
-            
+        Debug.Log("inside faede start");
+        FadeIn();     
     }
 
     public void FadeIn()
@@ -48,10 +44,9 @@ public class FadeScreen : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
-
         Color newColor2 = fadeColor;
         newColor2.a = alphaOut;
-        rend.material.SetColor("_Color", newColor2);
+        rend.material.SetColor("_Color", newColor2); 
 
     }
 }

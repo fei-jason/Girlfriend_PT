@@ -87,8 +87,9 @@ public class Pointer : MonoBehaviour
                 }
                 break;  
             case "RecordButton":
-                  StartRecording();
-                  break;
+                Debug.Log("Record Button Clicked");
+                StartRecording();
+                break;
         }
     }
 
@@ -118,7 +119,7 @@ public class Pointer : MonoBehaviour
         }
     }
 
-        public async void GetResponse()
+    public async void GetResponse()
     {
         // STILL TESTING ALL OF THIS
         // Debug.Log(textFile.text);
@@ -162,7 +163,9 @@ public class Pointer : MonoBehaviour
         var res = await openai.CreateAudioTranscription(req);
 
         progressBar.fillAmount = 0;
-        textField.text = res.Text;
+        inputField.text = res.Text;
+        Debug.Log(res.Text);
+        Debug.Log("inside method: EndRecording");
         recordButton.SetActive(true);
     }
 

@@ -636,7 +636,7 @@ MonoBehaviour:
   textFile2: {fileID: 4900000, guid: ff65039fd213c8a4e805bf9fb1737d0a, type: 3}
   slider: {fileID: 558626910}
   canvas: {fileID: 2013730266}
-  recordButton: {fileID: 0}
+  recordButton: {fileID: 2089350958}
   progressBar: {fileID: 83160426}
   clip: {fileID: 0}
   audioSource: {fileID: 0}
@@ -1453,7 +1453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeOnStart: 1
-  fadeDuration: 11
+  fadeDuration: 6
   fadeColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1330462303
 GameObject:
@@ -1484,7 +1484,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d3cefb4a57c5548adacb0835518abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeScreen: {fileID: 0}
+  fadeScreen: {fileID: 1274130928}
+  slider: {fileID: 558626910}
 --- !u!4 &1330462305
 Transform:
   m_ObjectHideFlags: 0
