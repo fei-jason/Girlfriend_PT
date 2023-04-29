@@ -739,7 +739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4423832869293809960, guid: 3c38cc0882e5d304cb3dc7a69d2318d3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15177.097
+      value: -24275.95
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c38cc0882e5d304cb3dc7a69d2318d3, type: 3}
@@ -754,6 +754,10 @@ PrefabInstance:
       propertyPath: okButton
       value: 
       objectReference: {fileID: 13044342}
+    - target: {fileID: 6855403725376323984, guid: 445f9b40330891e41b603a39b6a17dcb, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6855403725376323984, guid: 445f9b40330891e41b603a39b6a17dcb, type: 3}
       propertyPath: textField
       value: 

@@ -1,4 +1,4 @@
-/* SceneHandler.cs*/
+/* SceneHandler.cs*//*
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -42,4 +42,4 @@ public class SceneHandler : MonoBehaviour
             Debug.Log("RecordButton was exited");
         }
     }
-}
+}*/
