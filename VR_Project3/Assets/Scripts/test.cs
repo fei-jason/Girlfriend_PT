@@ -57,7 +57,7 @@ public class test : MonoBehaviour
     public async void GetResponse()
     {
         // STILL TESTING ALL OF THIS
-        Debug.Log(textFile.text);
+//        Debug.Log(textFile.text);
         textField.text = string.Format(textFile.text);
 
         Debug.Log(textFile2.text);
