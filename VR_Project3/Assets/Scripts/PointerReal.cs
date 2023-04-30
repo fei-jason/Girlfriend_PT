@@ -185,7 +185,7 @@ public class PointerReal : MonoBehaviour
 
         // Update the text field with response
         string response = responseMessage.Content;
-        response = Regex.Replace(response, @"\b\d+/\d+\b", "");
+        response = Regex.Replace(response, @"\{Intimacy:\s*\b\d+/\d+\b\s*\}", "");
 
         textField.text = string.Format("You: {0}\n\n{1}", userMessage.Content, response);
         Match match = Regex.Match(responseMessage.Content, @"\d+/\d+");
