@@ -8,16 +8,16 @@ using UnityEngine.UI;
 public class SceneTransitionManager : MonoBehaviour
 {
     public FadeScreen fadeScreen;
-    public Slider slider;
-    private bool check = false;
+    //public Slider slider;
+    //private bool check = false;
     
-    public void Update() {
+  /*  public void Update() {
         if (slider.value > 0.6 && check == false) {
             check = true;
             Debug.Log("update");
             GoToScene(1);
         }
-    }
+    } */
 
     public void GoToScene(int sceneIndex)
     {
@@ -31,5 +31,6 @@ public class SceneTransitionManager : MonoBehaviour
 
         //Launch new scene
         SceneManager.LoadScene(sceneIndex);
+        fadeScreen.FadeIn();
     }
 }

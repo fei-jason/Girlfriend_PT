@@ -9,6 +9,7 @@ using Valve.VR.Extras;
 using TMPro;
 using OpenAI;
 using System.Text.RegularExpressions;
+using UnityEngine.SceneManagement;
 
 public class Pointer : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class Pointer : MonoBehaviour
     // record buttons
     public GameObject recordButton;
 
+
+
+    //scene transition
+    public FadeScreen fadeScreen;
 
     // extras
     //[SerializeField] private Button recordButton;
@@ -90,6 +95,10 @@ public class Pointer : MonoBehaviour
                 Debug.Log("Record Button Clicked");
                 StartRecording();
                 break;
+            case "FruitButton":
+                Debug.Log("Clicked button");
+                GoToScene(1);
+                break;
         }
     }
 
@@ -102,6 +111,9 @@ public class Pointer : MonoBehaviour
                 break;
             case "Rosie":
                 laserPointer.color = Color.yellow;
+                break;
+            case "FruitButton":
+                laserPointer.color = Color.blue;
                 break;
         }
     }
@@ -116,6 +128,9 @@ public class Pointer : MonoBehaviour
             case "Rosie":
                 laserPointer.color = Color.black;
                 break;
+            case "FruitButton":
+                laserPointer.color = Color.black;
+                break;             
         }
     }
 
@@ -183,5 +198,21 @@ public class Pointer : MonoBehaviour
                 EndRecording();
             }
         }
+    }
+
+
+    public void GoToScene(int sceneIndex)
+    {
+        StartCoroutine(GoToSceneRoutine(sceneIndex));
+    }
+
+    IEnumerator GoToSceneRoutine(int sceneIndex)
+    {
+        fadeScreen.FadeOut();
+        yield return new WaitForSeconds(fadeScreen.fadeDuration);
+
+        //Launch new scene
+        SceneManager.LoadScene(sceneIndex);
+        fadeScreen.FadeIn();
     }
 }
