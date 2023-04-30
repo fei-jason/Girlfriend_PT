@@ -159,20 +159,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296474504}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfd4379db7039034b81be4ad0d85323b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserPointer: {fileID: 0}
-  textField: {fileID: 0}
-  inputField: {fileID: 0}
+  laserPointer: {fileID: 3222259218194274673}
+  textField: {fileID: 2103241594}
+  inputField: {fileID: 1621656401}
   okButton: {fileID: 0}
-  contextTextFile: {fileID: 0}
-  canvas: {fileID: 0}
-  slider: {fileID: 0}
+  contextTextFile: {fileID: 4900000, guid: 7b8ed3e624bf0fe4e8bb1859733600e6, type: 3}
+  canvas: {fileID: 2013730266}
+  slider: {fileID: 558626910}
+  fadeScreen: {fileID: 1274130928}
   recordButton: {fileID: 0}
-  progressBar: {fileID: 0}
+  progressBar: {fileID: 83160426}
 --- !u!114 &296474506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +181,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296474504}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27cab83dec1adc04aa988413b3073340, type: 3}
   m_Name: 
@@ -1040,6 +1041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 474070216}
+  playerCanvas: {fileID: 2013730266}
   slider: {fileID: 558626910}
 --- !u!114 &1621656401 stripped
 MonoBehaviour:
@@ -1316,6 +1318,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 366404565090798422, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 366404565090798423, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.27
+      objectReference: {fileID: 0}
     - target: {fileID: 366404565395107845, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1347,7 +1357,11 @@ PrefabInstance:
     - target: {fileID: 6349357786463746541, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
       propertyPath: onPressDown.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 296474506}
+      objectReference: {fileID: 296474505}
+    - target: {fileID: 6349357786463746541, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
+      propertyPath: onPressDown.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PointerReal, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6349357786463746542, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1361,11 +1375,23 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6349357786463746542, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
+      propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349357786463746542, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 296474506}
+      objectReference: {fileID: 296474505}
+    - target: {fileID: 6349357786463746542, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
+      propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 296474504}
     - target: {fileID: 6349357786463746542, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349357786463746542, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
+      propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6349357786463746542, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
@@ -1382,6 +1408,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6349357786463746542, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PointerReal, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349357786463746542, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}
+      propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: Pointer, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6349357786463746542, guid: c09654aeccef31642b36a1b3f44806ff, type: 3}

@@ -93,7 +93,6 @@ public class Pointer : MonoBehaviour
                 break;  
             case "RecordButton":
                 Debug.Log("Record Button Clicked");
-                StartRecording();
                 break;
             case "FruitButton":
                 Debug.Log("Clicked button");
@@ -158,7 +157,7 @@ public class Pointer : MonoBehaviour
     public void StartRecording()
     {
         isRecording = true;
-        recordButton.SetActive(false);
+        //recordButton.SetActive(false);
 
         clip = Microphone.Start(Microphone.devices[0], false, duration, 44100);
     }
@@ -181,7 +180,7 @@ public class Pointer : MonoBehaviour
         inputField.text = res.Text;
         Debug.Log(res.Text);
         Debug.Log("inside method: EndRecording");
-        recordButton.SetActive(true);
+        //recordButton.SetActive(true);
     }
 
     void Update()

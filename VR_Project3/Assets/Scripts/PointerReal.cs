@@ -9,8 +9,8 @@ using System;
 using OpenAI_API.Models;
 using OpenAI;
 using Valve.VR.Extras;
-using System;
 using System.Text.RegularExpressions;
+using UnityEngine.SceneManagement;
 
 public class PointerReal : MonoBehaviour
 {
@@ -26,6 +26,10 @@ public class PointerReal : MonoBehaviour
     public Canvas canvas;
     private bool isCanvas = true;
     public Slider slider;
+
+    
+    //scene transition
+    public FadeScreen fadeScreen;
 
     // Whisper
     [SerializeField] private Button recordButton;
@@ -70,10 +74,6 @@ public class PointerReal : MonoBehaviour
     {
         switch (e.target.name)
         {
-            case "Cube":
-                Debug.Log("Cube was clicked");
-                GetResponse();
-                break;
             case "Rosie":
                 if (isCanvas == true) {
                     isCanvas = false;
@@ -82,7 +82,11 @@ public class PointerReal : MonoBehaviour
                     isCanvas = true;
                     canvas.enabled = false;
                 }
-                break; 
+                break;  
+            case "FruitButton":
+                Debug.Log("Clicked button");
+                GoToScene(1);
+                break;
         }
     }
 
@@ -90,11 +94,11 @@ public class PointerReal : MonoBehaviour
     {
         switch (e.target.name)
         {
-            case "Cube":
-                laserPointer.color = Color.yellow;
-                break;
             case "Rosie":
                 laserPointer.color = Color.yellow;
+                break;
+            case "FruitButton":
+                laserPointer.color = Color.blue;
                 break;
         }
     }
@@ -103,12 +107,12 @@ public class PointerReal : MonoBehaviour
     {
         switch (e.target.name)
         {
-            case "Cube":
-                laserPointer.color = Color.black;
-                break;
             case "Rosie":
                 laserPointer.color = Color.black;
                 break;
+            case "FruitButton":
+                laserPointer.color = Color.black;
+                break; 
         }
     }
 
@@ -136,7 +140,7 @@ public class PointerReal : MonoBehaviour
         }
 
         // Disable OK button
-        okButton.enabled = false;
+        //okButton.enabled = false;
 
         // Fill the user message from the input field
         OpenAI_API.Chat.ChatMessage userMessage = new OpenAI_API.Chat.ChatMessage();
@@ -180,7 +184,10 @@ public class PointerReal : MonoBehaviour
         messages.Add(responseMessage);
 
         // Update the text field with response
-        textField.text = string.Format("You: {0}\n\n{1}", userMessage.Content, responseMessage.Content);
+        string response = responseMessage.Content;
+        response = Regex.Replace(input, @"\b\d+/\d+\b", "");
+        
+        textField.text = string.Format("You: {0}\n\n{1}", userMessage.Content, response);
         Match match = Regex.Match(responseMessage.Content, @"\d+/\d+");
         if (match.Success) {
             string[] parts = match.Value.Split('/');
@@ -198,7 +205,7 @@ public class PointerReal : MonoBehaviour
     public void StartRecording()
     {
         isRecording = true;
-        recordButton.enabled = false;
+        //recordButton.enabled = false;
 
         clip = Microphone.Start(Microphone.devices[0], false, duration, 44100);
     }
@@ -219,7 +226,7 @@ public class PointerReal : MonoBehaviour
 
         progressBar.fillAmount = 0;
         inputField.text = res.Text;
-        recordButton.enabled = true;
+        //recordButton.enabled = true;
     }
 
     void Update()
@@ -237,4 +244,20 @@ public class PointerReal : MonoBehaviour
             }
         }
     }
+
+        public void GoToScene(int sceneIndex)
+    {
+        StartCoroutine(GoToSceneRoutine(sceneIndex));
+    }
+
+    IEnumerator GoToSceneRoutine(int sceneIndex)
+    {
+        fadeScreen.FadeOut();
+        yield return new WaitForSeconds(fadeScreen.fadeDuration);
+
+        //Launch new scene
+        SceneManager.LoadScene(sceneIndex);
+        fadeScreen.FadeIn();
+    }
+
 }

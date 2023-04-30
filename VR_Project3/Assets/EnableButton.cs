@@ -7,6 +7,7 @@ public class EnableButton : MonoBehaviour
 {
 
     public Canvas canvas;
+    public Canvas playerCanvas;
     public Slider slider;
     
     // Start is called before the first frame update
@@ -18,9 +19,10 @@ public class EnableButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (slider.value > 0.6) 
+        if (slider.value >= 0.3) 
         {
             canvas.enabled = true;
+            playerCanvas.enabled = false;
         }
     }
 }
