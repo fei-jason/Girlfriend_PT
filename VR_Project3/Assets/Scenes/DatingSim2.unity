@@ -160,6 +160,7 @@ MonoBehaviour:
   contextTextFile: {fileID: 0}
   canvas: {fileID: 0}
   slider: {fileID: 0}
+  fadeScreen: {fileID: 0}
   recordButton: {fileID: 0}
   progressBar: {fileID: 0}
 --- !u!114 &296474506
@@ -2551,7 +2552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7959153740061257113, guid: 7db5e2ee04501aa44ab1f8ca9afc830a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -110.18
+      value: -107.08
       objectReference: {fileID: 0}
     - target: {fileID: 7959153740061257113, guid: 7db5e2ee04501aa44ab1f8ca9afc830a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2559,7 +2560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7959153740061257113, guid: 7db5e2ee04501aa44ab1f8ca9afc830a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 57.3715
+      value: 53.49
       objectReference: {fileID: 0}
     - target: {fileID: 7959153740061257113, guid: 7db5e2ee04501aa44ab1f8ca9afc830a, type: 3}
       propertyPath: m_LocalRotation.w

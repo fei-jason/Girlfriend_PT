@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.srcnalt.openai-unity": {
-      "version": "file:C:/Users/n01443988/Downloads/OpenAI-Unity-0.1.12",
+      "version": "file:C:/Users/student/Downloads/OpenAI-Unity-0.1.12",
       "depth": 0,
       "source": "local",
       "dependencies": {
