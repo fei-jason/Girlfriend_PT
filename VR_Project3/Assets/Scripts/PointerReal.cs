@@ -18,6 +18,7 @@ public class PointerReal : MonoBehaviour
 
     public TMP_Text textField;
     public TMP_InputField inputField;
+    public TMP_Text intimacyText;
     public Button okButton;
     public TextAsset contextTextFile;
     
@@ -58,6 +59,8 @@ public class PointerReal : MonoBehaviour
         {
             Debug.Log("Name: " + device);
         }
+
+        Debug.Log("Current Microphone: " + Microphone.devices[0]);
 
         //StartRecording();
 
@@ -194,6 +197,8 @@ public class PointerReal : MonoBehaviour
             float value = (float)Convert.ToInt32(parts[0]) / Convert.ToInt32(parts[1]);
             Debug.Log(value);
             slider.value = value;
+            string newValue = Convert.ToString(value * 100);
+            intimacyText.text = string.Format("{0}%", newValue);
         } else {
             Debug.Log("was not able to compute intimacy!!!!!!!!!!!!!");
         }
