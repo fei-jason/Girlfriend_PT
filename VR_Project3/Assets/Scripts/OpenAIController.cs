@@ -36,7 +36,7 @@ public class OpenAIController : MonoBehaviour
     void Start()
     {
         // my api key, dont share it lol, kept the github private
-        api = new OpenAIAPI("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");
+        api = new OpenAIAPI("");
         StartConversation();
         okButton.onClick.AddListener(() => GetResponse());
         recordButton.onClick.AddListener(StartRecording);
