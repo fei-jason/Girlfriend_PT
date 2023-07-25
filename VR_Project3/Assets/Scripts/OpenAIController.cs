@@ -25,7 +25,7 @@ public class OpenAIController : MonoBehaviour
     private AudioClip clip;
     private bool isRecording;
     private float time;
-    private OpenAIApi openai = new OpenAIApi("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");
+    private OpenAIApi openai = new OpenAIApi("");
     private OpenAIAPI api;
 
 
