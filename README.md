@@ -14,7 +14,7 @@ It started off as a joke idea that we wanted to make a dating sim. But the idea 
 # Controls
 - L Trigger to record (5 seconds, can be changed)
 - Squeeze to send message
-- R Trigger to open prompt and start chatting
+- R Trigger to interact with Rosie!
 - HTC Vive trackpad as movement
 
 
