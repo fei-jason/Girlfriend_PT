@@ -7,7 +7,7 @@
 # Controls
 - L Trigger to record (5 seconds, can be changed)
 - Squeeze to send message
-- R Trigger to open promt and start chatting
+- R Trigger to open prompt and start chatting
 - HTC Vive trackpad as movement
 
 
