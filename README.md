@@ -26,4 +26,4 @@ _Note: Will update with better pictures. We didn't think far enough ahead and ca
 
 
  # Notes
- All work was done by @ilykeegan, @crewsdel, and myself. The big commits from a stranger were due to misunderstanding on who was signed in at the Computer Lab at UNF.
+ All work was done by @ilykeegan, @crewsdel, and @fei-jason. The big commits from a stranger were due to misunderstanding on who was signed in at the Computer Lab at UNF.
