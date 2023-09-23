@@ -1,4 +1,4 @@
-# VR_Project3
+# Girlfriend_PT
  Dating Life Peaked with ChatGPT
 
  # Presentation and Demo: 
